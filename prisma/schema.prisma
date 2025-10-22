@@ -1,0 +1,188 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  role      UserRole @default(CLIENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Progress tracking
+  progress Progress[]
+  completedModules CompletedModule[]
+  quizAttempts QuizAttempt[]
+
+  @@map("users")
+}
+
+model TrainingModule {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  platform    Platform
+  difficulty  Difficulty
+  duration    Int // in minutes
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Content
+  lessons Lesson[]
+  quizzes Quiz[]
+  examples AdExample[]
+
+  // Progress tracking
+  completedModules CompletedModule[]
+
+  @@map("training_modules")
+}
+
+model Lesson {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   // Rich text content
+  order     Int
+  moduleId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  module TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@map("lessons")
+}
+
+model Quiz {
+  id        String   @id @default(cuid())
+  title     String
+  moduleId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  module TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  questions QuizQuestion[]
+  attempts QuizAttempt[]
+
+  @@map("quizzes")
+}
+
+model QuizQuestion {
+  id        String   @id @default(cuid())
+  question  String
+  options   String[] // JSON array of options
+  correctAnswer Int  // Index of correct option
+  explanation String?
+  quizId    String
+  order     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_questions")
+}
+
+model AdExample {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String?
+  videoUrl    String?
+  platform    Platform
+  adType      AdType
+  metrics     Json     // Performance metrics
+  moduleId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  module TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@map("ad_examples")
+}
+
+model Progress {
+  id        String   @id @default(cuid())
+  userId    String
+  moduleId  String
+  completed Boolean  @default(false)
+  score     Float?
+  timeSpent Int      // in minutes
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, moduleId])
+  @@map("progress")
+}
+
+model CompletedModule {
+  id        String   @id @default(cuid())
+  userId    String
+  moduleId  String
+  completedAt DateTime @default(now())
+  score     Float?
+  timeSpent Int
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  module TrainingModule @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, moduleId])
+  @@map("completed_modules")
+}
+
+model QuizAttempt {
+  id        String   @id @default(cuid())
+  userId    String
+  quizId    String
+  score     Float
+  answers   Json     // User's answers
+  completedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quiz Quiz @relation(fields: [quizId], references: [id], onDelete: Cascade)
+
+  @@map("quiz_attempts")
+}
+
+enum UserRole {
+  CLIENT
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum Platform {
+  FACEBOOK
+  INSTAGRAM
+  WHATSAPP
+  MESSENGER
+  META_AUDIENCE_NETWORK
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum AdType {
+  IMAGE
+  VIDEO
+  CAROUSEL
+  COLLECTION
+  STORY
+  REELS
+  MESSENGER_AD
+  WHATSAPP_AD
+}

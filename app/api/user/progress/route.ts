@@ -70,14 +70,12 @@ export async function POST(request: NextRequest) {
         }
       },
       update: {
-        progress: progress,
         completed: completed,
         updatedAt: new Date()
       },
       create: {
         userId: session.user.id,
         moduleId: moduleId,
-        progress: progress,
         completed: completed
       }
     })

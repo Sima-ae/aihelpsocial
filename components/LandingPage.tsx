@@ -5,45 +5,7 @@ import Link from 'next/link'
 
 export function LandingPage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-50 backdrop-blur-sm bg-white/80">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between py-4">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                <Bot className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">AI Help</h1>
-                <p className="text-xs text-gray-500">Marketing Platform</p>
-              </div>
-            </div>
-
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#" className="text-gray-600 hover:text-gray-900 font-medium">Home</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900 font-medium">Features</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900 font-medium">Pricing</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900 font-medium">About</a>
-            </nav>
-
-            {/* CTA Buttons */}
-            <div className="flex items-center space-x-4">
-              <Link href="/auth/signin" className="text-gray-600 hover:text-gray-900 font-medium">
-                Login
-              </Link>
-              <Link
-                href="/auth/signin"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity"
-              >
-                Register
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="bg-white">
 
       {/* Hero Section */}
       <section className="relative overflow-hidden">
@@ -380,58 +342,6 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {/* Logo & Description */}
-              <div className="col-span-1 md:col-span-2">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
-                    <Bot className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold">AI Help</h3>
-                    <p className="text-sm text-gray-400">Marketing Platform</p>
-                  </div>
-                </div>
-                <p className="text-gray-400 leading-relaxed max-w-md">
-                  Master Meta advertising with AI-powered training, real examples, and personalized insights.
-                </p>
-              </div>
-
-              {/* Quick Links */}
-              <div>
-                <h4 className="font-semibold mb-4">Quick Links</h4>
-                <ul className="space-y-2">
-                  <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Features</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Pricing</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-                </ul>
-              </div>
-
-              {/* Support */}
-              <div>
-                <h4 className="font-semibold mb-4">Support</h4>
-                <ul className="space-y-2">
-                  <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Community</a></li>
-                  <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Status</a></li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-              <p className="text-gray-400">
-                © 2024 AI Help Marketing Platform. All rights reserved.
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

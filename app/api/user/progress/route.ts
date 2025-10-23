@@ -76,7 +76,8 @@ export async function POST(request: NextRequest) {
       create: {
         userId: session.user.id,
         moduleId: moduleId,
-        completed: completed
+        completed: completed,
+        timeSpent: 0
       }
     })
 
@@ -95,7 +96,8 @@ export async function POST(request: NextRequest) {
         create: {
           userId: session.user.id,
           moduleId: moduleId,
-          completedAt: new Date()
+          completedAt: new Date(),
+          timeSpent: 0
         }
       })
     }

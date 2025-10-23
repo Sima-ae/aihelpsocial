@@ -378,7 +378,11 @@ async function main() {
     const { lessons, quizzes, examples, ...moduleInfo } = moduleData
     
     const module = await prisma.trainingModule.create({
-      data: moduleInfo
+      data: {
+        ...moduleInfo,
+        platform: moduleInfo.platform as any,
+        difficulty: moduleInfo.difficulty as any
+      }
     })
 
     // Create lessons
@@ -418,7 +422,9 @@ async function main() {
       await prisma.adExample.create({
         data: {
           ...exampleData,
-          moduleId: module.id
+          moduleId: module.id,
+          platform: exampleData.platform as any,
+          adType: exampleData.adType as any
         }
       })
     }

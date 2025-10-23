@@ -388,9 +388,3 @@ export class MetaAPIRateLimiter {
   }
 }
 
-// Export all types and classes
-export {
-  MetaAPIClient,
-  MetaWebhookHandler,
-  MetaAPIRateLimiter
-}

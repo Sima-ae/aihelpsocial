@@ -97,7 +97,7 @@ export default function ModulePage() {
   }
 
   const handlePrevLesson = () => {
-    if (currentLesson > 0) {
+    if (module && currentLesson > 0) {
       setCurrentLesson(currentLesson - 1)
       setProgress((currentLesson / module.lessons.length) * 100)
     }

@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
           include: {
             _count: {
               select: {
-                content: true,
+                lessons: true,
                 quizzes: true
               }
             }

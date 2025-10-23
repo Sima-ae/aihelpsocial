@@ -14,9 +14,6 @@ export async function GET(request: NextRequest) {
     const userProgress = await prisma.progress.findMany({
       where: {
         userId: session.user.id
-      },
-      include: {
-        module: true
       }
     })
 
